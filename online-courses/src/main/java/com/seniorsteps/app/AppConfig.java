@@ -18,6 +18,8 @@ import org.springframework.web.servlet.view.JstlView;
 @PropertySource("classpath:application.properties")
 public class AppConfig {
 
+	// update to see changes
+	
 	@Bean
 	public ViewResolver internalResourceViewResolver() {
 	    InternalResourceViewResolver bean = new InternalResourceViewResolver();
