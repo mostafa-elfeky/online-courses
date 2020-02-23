@@ -34,8 +34,6 @@ public class LookupLoader {
 
 			List<Category> categories = generalRepository.listCategories();
 			
-			System.out.println(categories);
-			
 			categoryPerId = new HashMap<Integer, Category>();
 			categoryPerCode = new HashMap<String, Category>();
 

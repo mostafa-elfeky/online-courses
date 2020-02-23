@@ -8,10 +8,13 @@ public class Course {
 
 	private int id;
 	private String title;
+	private String image;
+	private String description;
 	private Instructor instructor;
 	private Category category;
 	private Set<Enrollment> enrollments;
 	private List<Content> contents;
+	private CourseStatistics statistics;
 	
 	public Course() {}
 	
@@ -65,6 +68,30 @@ public class Course {
 
 	public void setContents(List<Content> contents) {
 		this.contents = contents;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public CourseStatistics getStatistics() {
+		return statistics;
+	}
+
+	public void setStatistics(CourseStatistics statistics) {
+		this.statistics = statistics;
 	}
 
 	public void addContent(Content content) {

@@ -22,6 +22,7 @@ import com.seniorsteps.app.filter.CourseFilter;
 import com.seniorsteps.app.models.Category;
 import com.seniorsteps.app.models.Content;
 import com.seniorsteps.app.models.Course;
+import com.seniorsteps.app.models.CourseStatistics;
 import com.seniorsteps.app.models.Field;
 import com.seniorsteps.app.models.Instructor;
 import com.seniorsteps.app.repository.CourseRepository;
@@ -62,8 +63,9 @@ public class CourseRepositoryImpl implements CourseRepository {
 		
 		Course course =  null;
 		Map<String, Object> mapParameters = null;
-		String query = " SELECT course.*, instructor.*, content.* FROM course "
+		String query = " SELECT course.*, instructor.*, statistics.*, content.* FROM course "
 				+ " JOIN instructor on (course.instructor_id = instructor.id) "
+				+ " JOIN course_statistics statistics on (statistics.course_id = course.id) "
 				+ " LEFT JOIN content on(content.course_id = course.id)"
 				+ " WHERE course.id = :courseId ";
 		
@@ -81,16 +83,26 @@ public class CourseRepositoryImpl implements CourseRepository {
 		List<Course> courses =  null;
 		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(filter);
 		
-		StringBuilder query = new StringBuilder(" SELECT course.*, instructor.* FROM course ");
+		StringBuilder query = new StringBuilder(" SELECT course.*, instructor.*, statistics.* FROM course ");
 		query.append(" JOIN instructor on (course.instructor_id = instructor.id) ");
+		query.append(" JOIN course_statistics statistics on (statistics.course_id = course.id) ");
 		query.append(" WHERE 1=1 ");
 		
-		if(filter.getKeyword() != null) {
+		if(filter.getKeyword() != null && filter.getKeyword() != "") {
 			query.append(" AND course.title LIKE :keyword");
 		}
 		
+		if(filter.getCategoryId() > 0) {
+			query.append(" AND course.category_id = :categoryId");
+		}
+		
+		if(filter.getListingType() != null && filter.getListingType().equals("LATEST")) {
+			query.append(" ORDER BY course.id DESC");
+		} else if(filter.getListingType() != null && filter.getListingType().equals("POPULAR")) {
+			query.append(" ORDER BY statistics.enrollment DESC");
+		}
+		
 		query.append(" LIMIT :start, :count");
-
 		courses =  jdbcTemplate.query(query.toString(), namedParameters, new CourseRowMapper());
 		
 		return courses;
@@ -136,6 +148,8 @@ public class CourseRepositoryImpl implements CourseRepository {
 					course = new Course();
 					course.setId(rs.getInt("course.id"));
 					course.setTitle(rs.getString("course.title"));
+					course.setImage(rs.getString("course.image"));
+					course.setDescription(rs.getString("course.description"));
 					course.setCategory(lookup.getCategoryPerId().get(rs.getInt("course.category_id")));
 					
 					Instructor instructor = new Instructor();
@@ -147,6 +161,15 @@ public class CourseRepositoryImpl implements CourseRepository {
 					instructor.setAbout(rs.getString("instructor.about"));
 					instructor.setField(new Field(rs.getInt("instructor.field")));
 					
+					CourseStatistics statistics = new CourseStatistics();
+					statistics.setCourseId(rs.getInt("statistics.course_id"));
+					statistics.setEnrollmentCount(rs.getInt("statistics.enrollment"));
+					statistics.setReviewRate(rs.getDouble("statistics.rate"));
+					statistics.setContentTotalTime(rs.getObject("statistics.total_time", LocalTime.class));
+					statistics.setReviewCount(rs.getInt("statistics.review_count"));
+					statistics.setContentCount(rs.getInt("statistics.content_count"));
+					
+					course.setStatistics(statistics);
 					course.setInstructor(instructor);
 				}
 				
@@ -176,6 +199,8 @@ public class CourseRepositoryImpl implements CourseRepository {
 			course.setId(rs.getInt("course.id"));
 			course.setTitle(rs.getString("course.title"));
 			course.setCategory(new Category(rs.getInt("course.category_id")));
+			course.setImage(rs.getString("course.image"));
+			course.setDescription(rs.getString("course.description"));
 			
 			Instructor instructor = new Instructor();
 			instructor.setId(rs.getInt("instructor.id"));
@@ -186,7 +211,17 @@ public class CourseRepositoryImpl implements CourseRepository {
 			instructor.setAbout(rs.getString("instructor.about"));
 			instructor.setField(new Field(rs.getInt("instructor.field")));
 			
+			
+			CourseStatistics statistics = new CourseStatistics();
+			statistics.setCourseId(rs.getInt("statistics.course_id"));
+			statistics.setEnrollmentCount(rs.getInt("statistics.enrollment"));
+			statistics.setReviewRate(rs.getDouble("statistics.rate"));
+			statistics.setContentTotalTime(rs.getObject("statistics.total_time", LocalTime.class));
+			statistics.setReviewCount(rs.getInt("statistics.review_count"));
+			statistics.setContentCount(rs.getInt("statistics.content_count"));
+			
 			course.setInstructor(instructor);
+			course.setStatistics(statistics);
 			
 			return course;
 		}

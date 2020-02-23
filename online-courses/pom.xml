@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.seniorsteps</groupId>
-	<artifactId>spring-web-app</artifactId>
+	<artifactId>online-courses</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
@@ -91,7 +91,7 @@
 
 
 	<build>
-		<finalName>spring-web-app</finalName>
+		<finalName>online-courses</finalName>
 
 		<plugins>
 			<plugin>

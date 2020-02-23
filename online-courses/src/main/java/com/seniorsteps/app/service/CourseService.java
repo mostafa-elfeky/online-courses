@@ -42,6 +42,11 @@ public class CourseService {
 	}
 
 	public List<Course> list(CourseFilter filter) {
+		
+		if(filter.getCount() == 0) {
+			filter.setCount(10);
+		}
+		
 		return courseRepository.list(filter);
 	}
 	
