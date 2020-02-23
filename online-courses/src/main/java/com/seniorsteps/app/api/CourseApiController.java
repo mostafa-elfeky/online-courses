@@ -18,7 +18,7 @@ import com.seniorsteps.app.service.CourseService;
 
 @RestController
 @RequestMapping("/api/courses")
-public class CourseController {
+public class CourseApiController {
 
 	@Autowired 
 	private CourseService courseService;
