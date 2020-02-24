@@ -6,21 +6,22 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @ControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class WebExceptionHandler {
+@Order(Ordered.LOWEST_PRECEDENCE)
+public class WebGeneralExceptionHandler {
 	
-	
-	@ExceptionHandler(AccessDeniedException.class)
-    public ModelAndView handleForbiddenException(AccessDeniedException exp) {
+	@ExceptionHandler(Exception.class)
+	protected String handleEcption(Exception ex,
+			WebRequest request) {
 		
-		exp.printStackTrace();
-		System.out.println("herer...");
-
-		return new ModelAndView("error/403");
-    }
+		System.out.println("general excp");
+		ex.printStackTrace();
+		
+		return "error/500";
+	}
 	
 }

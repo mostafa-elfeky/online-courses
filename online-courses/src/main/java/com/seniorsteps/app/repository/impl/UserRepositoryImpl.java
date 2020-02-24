@@ -17,15 +17,18 @@ import org.springframework.stereotype.Repository;
 
 import com.seniorsteps.app.models.User;
 import com.seniorsteps.app.repository.UserRepository;
+import com.seniorsteps.app.service.LookupLoader;
 
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-	
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private LookupLoader lookupLoader;
 	
 	
 	@Override
@@ -92,6 +95,7 @@ public class UserRepositoryImpl implements UserRepository {
 			user.setAge(rs.getInt("user.age"));
 			user.setBirthDate(rs.getObject("user.birth_date", LocalDate.class));
 			user.setPassword(rs.getString("user.password"));
+			user.setType(lookupLoader.getUserTypePerId().get(rs.getInt("user.user_type_id")));
 			
 			return user;
 		}

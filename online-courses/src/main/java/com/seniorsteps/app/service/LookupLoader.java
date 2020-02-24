@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.seniorsteps.app.models.Category;
 import com.seniorsteps.app.models.Gender;
+import com.seniorsteps.app.models.UserType;
 import com.seniorsteps.app.repository.GeneralRepository;
 
 
@@ -26,6 +27,8 @@ public class LookupLoader {
 
 	private Map<Integer, Gender> genderPerId;
 	private Map<String, Gender> genderPerCode;
+	
+	private Map<Integer, UserType> userTypePerId;
 
 	@PostConstruct
 	public void loadCategories() throws Exception {
@@ -68,6 +71,25 @@ public class LookupLoader {
 			System.out.println("error on load genders.");
 		}
 	}
+	
+	@PostConstruct
+	public void loadUserTypes() throws Exception {
+
+		try {
+
+			List<UserType> types = generalRepository.listUserTypes();
+			
+			userTypePerId = new HashMap<Integer, UserType>();
+
+			for (UserType type : types) {
+				userTypePerId.put(type.getId(), type);
+			}
+
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			System.out.println("error on load categories.");
+		}
+	}
 
 	public Map<Integer, Category> getCategoryPerId() {
 		return categoryPerId;
@@ -83,6 +105,10 @@ public class LookupLoader {
 
 	public Map<String, Gender> getGenderPerCode() {
 		return genderPerCode;
+	}
+
+	public Map<Integer, UserType> getUserTypePerId() {
+		return userTypePerId;
 	}
 
 	

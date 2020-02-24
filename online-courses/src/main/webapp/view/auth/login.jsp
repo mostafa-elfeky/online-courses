@@ -38,7 +38,7 @@
 <body>
 	<div class="login-form">
 
-		<form action="${pageContext.request.contextPath}/processLogin" method="post">
+		<form method="post" action="${pageContext.request.contextPath}/login" name="form">
 			<h2 class="text-center">Log in</h2>
 			<div class="form-group">
 				<input type="text" name="username" class="form-control" value="${user.username}"
@@ -47,6 +47,12 @@
 			<div class="form-group">
 				<input type="password" name="password" class="form-control"
 					placeholder="Password" required="required">
+			</div>
+			<div class="form-group">
+				<div class="checkbox checkbox-primary pull-left p-t-0">
+					<input id="checkbox-signup" type="checkbox" name="remember-me" value="true">
+					<label for="checkbox-signup">remember me</label>
+				</div>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary btn-block">Log

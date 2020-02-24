@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.seniorsteps.app.models.Category;
 import com.seniorsteps.app.models.Gender;
+import com.seniorsteps.app.models.UserType;
 import com.seniorsteps.app.repository.GeneralRepository;
 
 
@@ -66,6 +67,29 @@ public class GeneralRepositoryImpl implements GeneralRepository {
 		});
 		
 		return genders;
+	}
+	
+	@Override
+	public List<UserType> listUserTypes() {
+		
+		List<UserType> types = null;
+		String query = " SELECT type.* FROM user_type type";
+		
+		types =  jdbcTemplate.query(query, new RowMapper<UserType>() {
+
+			@Override
+			public UserType mapRow(ResultSet rs, int arg1) throws SQLException {
+				
+				UserType type = new UserType();
+				type.setId(rs.getInt("type.id"));
+				type.setName(rs.getString("type.name"));
+				type.setCode(rs.getString("type.code"));
+				
+				return type;
+			}
+		});
+		
+		return types;
 	}
 	
 }

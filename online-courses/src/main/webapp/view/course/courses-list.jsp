@@ -79,7 +79,9 @@
 							<ul>
 								<li><i class="icon_clock_alt"></i> ${course.statistics.contentTotalTime}</li>
 								<li><i class="icon-user-add"></i> ${course.statistics.enrollmentCount}</li>
-								<li><a href="course-detail.html">Enroll now</a></li>
+								<sec:authorize access="hasAuthority('STUDENT')">
+									<li><a href="course-detail.html">Enroll now</a></li>
+								</sec:authorize>
 							</ul>
 						</div>
 						</div>
