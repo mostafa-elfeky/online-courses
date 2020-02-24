@@ -1,64 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap Simple Login Form</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-<style type="text/css">
-	.login-form {
-		width: 340px;
-    	margin: 50px auto;
-	}
-    .login-form form {
-    	margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .login-form h2 {
-        margin: 0 0 15px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-    }
-    .btn {        
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>
-</head>
-<body>
-	<div class="login-form">
 
-		<form method="post" action="${pageContext.request.contextPath}/login" name="form">
-			<h2 class="text-center">Log in</h2>
-			<div class="form-group">
-				<input type="text" name="username" class="form-control" value="${user.username}"
-					placeholder="Username" required="required">
-			</div>
-			<div class="form-group">
-				<input type="password" name="password" class="form-control"
-					placeholder="Password" required="required">
-			</div>
-			<div class="form-group">
-				<div class="checkbox checkbox-primary pull-left p-t-0">
-					<input id="checkbox-signup" type="checkbox" name="remember-me" value="true">
-					<label for="checkbox-signup">remember me</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-block">Log
-					in</button>
-			</div>
-		</form>
+<%@ include file="/view/layout/header.jsp"%>
+
+<body id="login_bg">
+	
+	<nav id="menu" class="fake_menu"></nav>
+	
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
 	</div>
+	<!-- End Preload -->
+	
+	<div id="login">
+		<aside>
+			<figure>
+				<a href="${pageContext.request.contextPath}/">
+				<img src="${pageContext.request.contextPath}/resources/img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
+			</figure>
+			  <form method="post" action="${pageContext.request.contextPath}/login" name="form">
+				<div class="form-group">
+					<span class="input">
+					<input class="input_field" type="text" autocomplete="off" name="username" required="required">
+						<label class="input_label">
+						<span class="input__label-content">Your email</span>
+					</label>
+					</span>
+					<span class="input">
+					<input class="input_field" type="password" name="password" required="required">
+						<label class="input_label">
+						<span class="input__label-content">Your password</span>
+					</label>
+					</span>
+					<span class="input">
+						<input id="checkbox-signup" type="checkbox" name="remember-me" value="true">
+						<label for="checkbox-signup">remember me</label>
+					</span>					
+					<small><a href="#0">Forgot password?</a></small>
+				</div>
+				<button type="submit" class="btn_1 rounded full-width add_top_60">Log
+					in</button>
+				<div class="text-center add_top_10">New to Udema? <strong><a href="register.html">Sign up!</a></strong></div>
+			</form>
+			<div class="copy">© 2017 Udema</div>
+		</aside>
+	</div>
+	<!-- /login -->
+		
+	<!-- COMMON SCRIPTS -->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-2.2.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/common_scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+   
 </body>
-</html>                                		                            
+</html>
