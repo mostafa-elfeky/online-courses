@@ -3,7 +3,7 @@ package com.seniorsteps.app;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,21 +11,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.seniorsteps.app.security.AppDetailsService;
 
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-	@Autowired
-	private AppDetailsService appDetailsService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(11);
+	}
+	
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		  auth.inMemoryAuthentication().withUser("student@gmail.com")
+		  	  .password("$2y$11$YYNMT32rr5kaPcZ.NP.0f.4A5YFHobXaQyY8K5JtEzs3YQgB34wnC").roles("STUDENT");
+		  auth.inMemoryAuthentication().withUser("instructor@gmail.com")
+		      .password("$2y$11$YYNMT32rr5kaPcZ.NP.0f.4A5YFHobXaQyY8K5JtEzs3YQgB34wnC").roles("INSTRUCTOR");
 	}
 
 	@Override
@@ -33,22 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 			.authorizeRequests()
-			.anyRequest().authenticated()
-		.and()
-			.formLogin()
-			.loginPage("/login")
-			.permitAll()
-		.and()
-			.logout().logoutUrl("/logout")
-			.deleteCookies("JSESSIONID").logoutSuccessUrl("/")
-			.invalidateHttpSession(true)
-		.and()
-			.rememberMe()
-			.key("uniqueAndSecret")
-			.userDetailsService(appDetailsService)
-		.and()
-			.csrf().disable();
-
+				.antMatchers("/courses").hasRole("STUDENT")
+				.anyRequest().authenticated()
+			.and()
+				.formLogin()
+				.loginProcessingUrl("/login")
+				.loginPage("/login")
+			.and()
+			.logout();
 	}
 
 	@Override
