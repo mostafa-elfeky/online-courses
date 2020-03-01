@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@ControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@ControllerAdvice("com.seniorsteps.app.web")
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class WebExceptionHandler {
 	
 	

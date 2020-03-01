@@ -1,7 +1,12 @@
 package com.seniorsteps.app.models;
 
+import java.io.Serializable;
 
-public class UserType {
+public class UserType implements Serializable {
+
+	
+	
+	private static final long serialVersionUID = 8206854630573066519L;
 
 	private int id;
 	private String name;
