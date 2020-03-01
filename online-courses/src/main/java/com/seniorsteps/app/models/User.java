@@ -1,9 +1,13 @@
 package com.seniorsteps.app.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = 4856373078956194445L;
+	
+	
 	private int id;
 	private String firstname;
 	private String lastname;

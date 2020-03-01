@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +25,7 @@
 				<a href="${pageContext.request.contextPath}/">
 				<img src="${pageContext.request.contextPath}/resources/img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
 			</figure>
-			  <form method="post" action="${pageContext.request.contextPath}/login" name="form">
+			  <form:form method="post" action="${pageContext.request.contextPath}/login" name="form">
 				<div class="form-group">
 					<span class="input">
 					<input class="input_field" type="text" autocomplete="off" name="username" required="required">
@@ -41,8 +48,8 @@
 				<button type="submit" class="btn_1 rounded full-width add_top_60">Log
 					in</button>
 				<div class="text-center add_top_10">New to Udema? <strong><a href="register.html">Sign up!</a></strong></div>
-			</form>
-			<div class="copy">© 2017 Udema</div>
+			</form:form>
+			<div class="copy">Â© 2017 Udema</div>
 		</aside>
 	</div>
 	<!-- /login -->
