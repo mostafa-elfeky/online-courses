@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <!DOCTYPE html>
@@ -21,13 +20,7 @@
 		<section class="hero_single version_2">
 			<div class="wrapper">
 				<div class="container">
-					<h3>What would you learn 
-					
-					<sec:authorize access="isAuthenticated()">
-					    <sec:authentication property="principal.user.firstname" /> 
-					</sec:authorize>
-					
-					?</h3>
+					<h3>What would you learn?</h3>
 					<p>Increase your expertise in business, technology and personal development</p>
 					<form method="get" action="${pageContext.request.contextPath}/courses">
 						<div id="custom-search-input">
