@@ -87,7 +87,7 @@
 		</dependency>
 		<!-- data layer dependences -->
 		
-		<!-- Spring security -->
+	<!-- Spring security -->
 	<dependency>
 		<groupId>org.springframework.security</groupId>
 		<artifactId>spring-security-web</artifactId>
@@ -105,8 +105,7 @@
 		<artifactId>spring-security-taglibs</artifactId>
 		<version>5.2.2.RELEASE</version>
 	</dependency>
-
-		<!-- Spring security -->
+	<!-- Spring security -->
 		
 	</dependencies>
 
