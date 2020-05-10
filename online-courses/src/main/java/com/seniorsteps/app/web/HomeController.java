@@ -24,4 +24,10 @@ public class HomeController {
 		return "auth/login";
 	}
 	
+	@GetMapping("/403")
+	public String authError() {
+		return "error/403";
+	}
+
+	
 }
