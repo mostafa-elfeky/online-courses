@@ -42,7 +42,7 @@ public class CustomerViewController extends HttpServlet {
 			query.setKeyword(request.getParameter("keyword"));
 			query.setCount(15);
 			
-			List<Customer> customers = customerService.list(query);
+			List<Customer> customers = customerService.list(query).getCustomers();
 			
 			request.setAttribute("customers", customers);
 			request.getRequestDispatcher("/views/customers/list-customers.jsp")

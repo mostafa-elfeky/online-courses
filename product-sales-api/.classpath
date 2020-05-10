@@ -44,5 +44,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="lib" path="D:/Java Course/REST (Jersey)/REST-Project/jackson-datatype-jsr310-2.10.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

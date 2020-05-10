@@ -7,6 +7,7 @@ import com.seniorsteps.entities.Customer;
 import com.seniorsteps.queries.CustomerQuery;
 import com.seniorsteps.repository.CustomerRepository;
 import com.seniorsteps.repository.impl.CustomerRepositoryImpl;
+import com.seniorsteps.response.CustomerListResponse;
 
 public class CustomerService {
 	
@@ -30,8 +31,18 @@ public class CustomerService {
 		return repository.get(customerId);
 	}
 
-	public List<Customer> list(CustomerQuery customerQuery) {
-		return repository.list(customerQuery);
+	public CustomerListResponse list(CustomerQuery customerQuery) {
+		
+		CustomerListResponse response = new CustomerListResponse();
+		
+		if(customerQuery.getCount() == 0) {
+			customerQuery.setCount(10);
+		}
+		
+		List<Customer> customers = repository.list(customerQuery);
+		
+		response.setCustomers(customers);
+		return response;
 	}
 
 

@@ -229,9 +229,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 			customer.setState(rs.getString("c.state"));
 			customer.setPoints(rs.getInt("c.points"));
 			
-			Integer orderId = rs.getInt("o.order_id");
+			int orderId = rs.getInt("o.order_id");
 			
-			if(orderId != null) {
+			if(orderId != 0) {
 				Order order = orders.get(orderId);
 				
 				if(order == null) {

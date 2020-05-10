@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.ws.rs.QueryParam;
 
-public class CustomerQuery {
+public class ProductQuery {
 
 	private @QueryParam("keyword") String keyword;
 	private @QueryParam("birthdate") Date birthdate;

@@ -8,7 +8,7 @@ public class Supplier {
 	private String name;
 	private List<Product> products;
 	
-	
+
 	public Supplier() {}
 	
 	public Supplier(int supplier_id, String name) {
@@ -16,6 +16,7 @@ public class Supplier {
 		this.supplier_id = supplier_id;
 		this.name = name;
 	}
+	
 	public int getSupplier_id() {
 		return supplier_id;
 	}
