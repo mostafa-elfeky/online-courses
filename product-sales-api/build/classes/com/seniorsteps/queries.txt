@@ -1,0 +1,54 @@
+
+** Insert customer:
+INSERT INTO customers(first_name, last_name, birth_date, phone, address, city, state, points) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+
+** Update Customer:
+UPDATE customers SET first_name= ?, last_name= ?, birth_date= ?, phone= ?,
+			address= ?, city= ?, state=?, points= ? 
+			WHERE customer_id= ?
+			
+** Delete Customer: 
+DELETE FROM customers WHERE customer_id= ?
+
+
+** Get full customer details:
+SELECT c.customer_id, c.first_name, c.last_name, c.birth_date, c.phone, 
+				 c.address, c.city, c.state, c.points,
+				 o.order_id, o.order_date, o.shipped_date, o.status,
+				 i.quantity, i.unit_price,
+				 p.product_id, p.name 
+				 FROM customers c 
+				 LEFT JOIN orders o on c.customer_id = o.customer_id 
+				 LEFT JOIN order_items i on o.order_id = i.order_id 
+				 LEFT JOIN products p on i.product_id = p.product_id
+				 WHERE c.customer_id = ?
+
+** List Customers
+SELECT customer_id, first_name, last_name, birth_date, phone, 
+				address, city, state, points FROM customers 
+				WHERE 1=1 
+				AND (first_name LIKE ? OR last_name LIKE ? )
+				AND birth_date= ?
+				LIMIT ?, ?
+				
+** Login
+SELECT user_id, firstname, lastname, username, password, age, address
+	FROM user WHERE username= ? AND password= ?	
+	
+** SignUp
+INSERT INTO user(firstname, lastname, username, password, age, address)
+	VALUES (?, ?, ?, ?, ?, ?)	
+
+** create users table:
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `address` varchar(450) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

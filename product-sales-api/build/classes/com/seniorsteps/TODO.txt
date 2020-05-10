@@ -1,0 +1,12 @@
+
+
+Build a data layer which provide the below functionality:
+1- add customer
+2- edit customer
+3- delete customer 
+4- get customer
+5- list all customers depend on [keyword, birthdate, pageable]
+6- list loyal customers who's orders excceed a specific amount ex 400
+7- get a customer with his last order including order items.
+
+
