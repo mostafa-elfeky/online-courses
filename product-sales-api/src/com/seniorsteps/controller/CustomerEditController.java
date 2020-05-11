@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.seniorsteps.entities.Customer;
-import com.seniorsteps.service.CustomerService;
+import com.seniorsteps.repository.CustomerRepository;
+import com.seniorsteps.repository.impl.CustomerRepositoryImpl;
 
 /**
  * Servlet implementation class CustomerController
@@ -20,7 +21,7 @@ import com.seniorsteps.service.CustomerService;
 public class CustomerEditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	CustomerService customerService = new CustomerService();
+	CustomerRepository customerRepository = new CustomerRepositoryImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,7 +39,7 @@ public class CustomerEditController extends HttpServlet {
 		
 		if(customerId != null) {
 			
-			Customer customer = customerService.get(Integer.parseInt(customerId));
+			Customer customer = customerRepository.get(Integer.parseInt(customerId));
 						
 			request.setAttribute("customer", customer);
 			request.getRequestDispatcher("/views/customers/edit-customer.jsp")
@@ -76,7 +77,7 @@ public class CustomerEditController extends HttpServlet {
 			request.setAttribute("error", "Not found!");
 			response.sendRedirect(getServletContext().getContextPath() + "/secure/customers");
 		} else {
-			customerService.update(customer);
+			customerRepository.update(customer);
 			response.sendRedirect(getServletContext().getContextPath() + "/secure/customers");
 		}
 		

@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.seniorsteps.entities.User;
-import com.seniorsteps.service.UserService;
+import com.seniorsteps.repository.UserRepository;
+import com.seniorsteps.repository.impl.UserRepositoryImpl;
 
 /**
  * Servlet implementation class Login
@@ -21,7 +22,7 @@ public class Login extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	UserService userService = new UserService();
+	UserRepository userRepository = new UserRepositoryImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,7 +45,7 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		User user = userService.signin(username, password);
+		User user = userRepository.getByUsernameAndPassword(username, password);
 		
 		if(user == null){
 			request.setAttribute("message", "Invalid username or password");
