@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.seniorsteps.entities.Customer;
 import com.seniorsteps.queries.CustomerQuery;
-import com.seniorsteps.service.CustomerService;
+import com.seniorsteps.repository.CustomerRepository;
+import com.seniorsteps.repository.impl.CustomerRepositoryImpl;
 
 /**
  * Servlet implementation class CustomerController
@@ -20,7 +21,7 @@ import com.seniorsteps.service.CustomerService;
 public class CustomerViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	CustomerService customerService = new CustomerService();
+	CustomerRepository customerRepository = new CustomerRepositoryImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,14 +43,14 @@ public class CustomerViewController extends HttpServlet {
 			query.setKeyword(request.getParameter("keyword"));
 			query.setCount(15);
 			
-			List<Customer> customers = customerService.list(query).getCustomers();
+			List<Customer> customers = customerRepository.list(query);
 			
 			request.setAttribute("customers", customers);
 			request.getRequestDispatcher("/views/customers/list-customers.jsp")
 				.forward(request, response);
 		} else {
 			
-			Customer customer = customerService.get(Integer.parseInt(customerId));
+			Customer customer = customerRepository.get(Integer.parseInt(customerId));
 						
 			request.setAttribute("customer", customer);
 			request.getRequestDispatcher("/views/customers/customer-details.jsp")
@@ -71,7 +72,7 @@ public class CustomerViewController extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath() + "/secure/customers");
 		} else {
 			request.setAttribute("message", "Customer with ID " + customerId + " deleted successfully..");
-			customerService.delete(Integer.parseInt(customerId));
+			customerRepository.delete(Integer.parseInt(customerId));
 			response.sendRedirect(getServletContext().getContextPath() + "/secure/customers");
 		}
 		

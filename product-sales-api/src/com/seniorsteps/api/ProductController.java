@@ -1,6 +1,8 @@
 package com.seniorsteps.api;
 
 
+import java.util.List;
+
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,40 +16,40 @@ import javax.ws.rs.core.MediaType;
 
 import com.seniorsteps.entities.Product;
 import com.seniorsteps.queries.ProductQuery;
-import com.seniorsteps.response.ProductListResponse;
-import com.seniorsteps.service.ProductService;
+import com.seniorsteps.repository.ProductRepository;
+import com.seniorsteps.repository.impl.ProductRepositoryImpl;
 
 @Path("/secure/products")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductController {
 	
-	ProductService productService = new ProductService();
+	ProductRepository productRepository = new ProductRepositoryImpl();
 
 	@GET
-	public ProductListResponse list(@BeanParam ProductQuery productQuery) {
-		return productService.list(productQuery);
+	public List<Product> list(@BeanParam ProductQuery productQuery) {
+		return productRepository.list(productQuery);
 	}
 
 	@POST
 	public Product create(Product product) {
-		return productService.create(product);
+		return productRepository.create(product);
 	}
 
 	@PUT
 	public Product update(Product product) {
-		return productService.update(product);
+		return productRepository.update(product);
 	}
 
 	@DELETE
 	public boolean delete(int productId) {
-		return productService.delete(productId);
+		return productRepository.delete(productId);
 	}
 
 	@GET
 	@Path("/{productId}")
 	public Product get(@PathParam("productId") int productId) {
-		return productService.get(productId);
+		return productRepository.get(productId);
 	}
 
 }

@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.seniorsteps.entities.User;
-import com.seniorsteps.service.UserService;
+import com.seniorsteps.repository.UserRepository;
+import com.seniorsteps.repository.impl.UserRepositoryImpl;
 
 /**
  * Servlet implementation class Login
@@ -19,7 +20,7 @@ public class Signup extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private UserService userService = new UserService();
+	private UserRepository userRepository = new UserRepositoryImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,7 +44,7 @@ public class Signup extends HttpServlet {
 		user.setAge(Integer.parseInt(request.getParameter("age")));
 		user.setAddress(request.getParameter("address"));
 		
-		userService.signup(user);
+		userRepository.create(user);
 		
 		request.setAttribute("message", "You are registered successfully");
 		

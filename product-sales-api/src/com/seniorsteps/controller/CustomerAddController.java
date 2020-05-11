@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.seniorsteps.entities.Customer;
-import com.seniorsteps.service.CustomerService;
+import com.seniorsteps.repository.CustomerRepository;
+import com.seniorsteps.repository.impl.CustomerRepositoryImpl;
 
 /**
  * Servlet implementation class CustomerController
@@ -20,7 +21,7 @@ import com.seniorsteps.service.CustomerService;
 public class CustomerAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	CustomerService customerService = new CustomerService();
+	CustomerRepository customerRepository = new CustomerRepositoryImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -57,7 +58,7 @@ public class CustomerAddController extends HttpServlet {
 		if(request.getParameter("birthDate") != null)
 			customer.setBirthDate(LocalDate.parse(request.getParameter("birthDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		
-		customerService.create(customer);
+		customerRepository.create(customer);
 		response.sendRedirect(getServletContext().getContextPath() + "/secure/customers");
 		
 	}
