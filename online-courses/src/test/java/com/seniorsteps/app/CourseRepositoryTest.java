@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.seniorsteps.app.filter.CourseFilter;
-import com.seniorsteps.app.models.Category;
 import com.seniorsteps.app.models.Course;
 import com.seniorsteps.app.models.Instructor;
 import com.seniorsteps.app.repository.CourseRepository;
@@ -43,7 +42,7 @@ public class CourseRepositoryTest {
 		CourseFilter filter = new CourseFilter();
 		filter.setCount(10);
 		
-		List<Course> courses = courseRepository.list(filter);
+		List<Course> courses = courseRepository.findAll();
 		
 		for (Course course : courses) {
 			System.out.println(course);
@@ -54,7 +53,7 @@ public class CourseRepositoryTest {
 	@Ignore
     public void testFindCourseById() throws Exception {
 
-		Course course = courseRepository.findById(10);
+		Course course = courseRepository.findById(10).get();
         System.out.println(" Course: " + course);
 	}
 	
@@ -62,8 +61,8 @@ public class CourseRepositoryTest {
 	@Ignore
     public void testDeleteCourse() throws Exception {
 
-		boolean deleted = courseRepository.delete(12);
-        System.out.println(" Course deleted: " + deleted);
+		courseRepository.deleteById(12);
+        System.out.println(" Course deleted: ");
 	}
 	
 	@Test
@@ -73,15 +72,14 @@ public class CourseRepositoryTest {
 		Course course = getDummyCourse();
 		course.setId(10);
 		
-		boolean updated = courseRepository.update(course);
-        System.out.println(" Course updated: " + updated);
+		Course savedCourse = courseRepository.save(course);
+        System.out.println(" Course updated: " + savedCourse);
 	}
 	
 	private Course getDummyCourse() {
 		
 		Course course = new Course();
 		course.setTitle("Effective java programming 3d");
-		course.setCategory(new Category(1));
 		course.setInstructor(new Instructor(1));
 		
 		return course;

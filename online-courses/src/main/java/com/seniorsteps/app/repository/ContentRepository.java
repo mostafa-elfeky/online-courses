@@ -1,22 +1,15 @@
 package com.seniorsteps.app.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
 
-import com.seniorsteps.app.filter.SearchFilter;
 import com.seniorsteps.app.models.Content;
 
-public interface ContentRepository {
+@Repository
+public interface ContentRepository extends JpaRepository<Content, Integer> {
 
-	Content save(Content content);
-
-	boolean delete(int contentId);
-	
-	boolean deleteByCourseId(int courseId);
-
-	boolean update(Content content);
-	
-	Content findById(int contentId);
-
-	List<Content> list(SearchFilter filter);
+	@Modifying
+	void deleteByCourseId(int courseId);
 
 }

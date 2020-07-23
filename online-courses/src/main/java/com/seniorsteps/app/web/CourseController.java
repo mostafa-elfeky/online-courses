@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.seniorsteps.app.filter.CourseFilter;
 import com.seniorsteps.app.models.Course;
 import com.seniorsteps.app.service.CourseService;
-import com.seniorsteps.app.service.LookupLoader;
 
 @Controller
 @RequestMapping("/courses")
@@ -23,8 +22,6 @@ public class CourseController {
 	@Autowired 
 	private CourseService courseService;
 	
-	@Autowired 
-	private LookupLoader loader;
 	
 	@GetMapping
 	public ModelAndView list(CourseFilter filter) {
@@ -38,7 +35,7 @@ public class CourseController {
 		List<Course> courses = courseService.list(filter);
 		
 		mav.addObject("courses", courses);
-		mav.addObject("categories", loader.getCategoryPerId().values());
+		mav.addObject("categories", null);
 		mav.addObject("filter", filter);
 		
 		return mav;

@@ -2,19 +2,49 @@ package com.seniorsteps.app.models;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="STUDENT")
 public class Student {
 
-	private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="EMAIL")
 	private String email;
+	
+	@Column(name="EXPERIENCE_LEVEL")
 	private int experienceLevel;
 	
+	@Column(name="ID")
+	@ManyToMany
+	@JoinTable(
+			joinColumns=@JoinColumn(name="STUDENT_ID"), 
+			inverseJoinColumns=@JoinColumn(name="COURSE_ID"))
 	private Set<Course> courses;
+	
+	@OneToOne
+	@JoinColumn(name="USER_ID")
 	private User user;
 	
 	public Student() {}
 	
-	public Student(int id) {
+	public Student(Integer id) {
 		this.id = id;
 	}
 	
@@ -43,11 +73,11 @@ public class Student {
 		this.courses = courses;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -59,10 +89,5 @@ public class Student {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", email=" + email + ", experienceLevel=" + experienceLevel
-				+ ", courses=" + courses + ", user=" + user + "]";
-	}
 	
 }

@@ -2,31 +2,64 @@ package com.seniorsteps.app.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="USER")
 public class User {
 
-	private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="FIRST_NAME")
 	private String firstname;
+	
+	@Column(name="LAST_NAME")
 	private String lastname;
+	
+	@Column(name="USERNAME")
 	private String username;
+	
+	@Column(name="PASSWORD")
 	private String password;
+	
+	@Column(name="AGE")
 	private int age;
+	
+	@Column(name="ADDRESS")
 	private String address;
+	
+	@Column(name="BIRTH_DATE")
 	private LocalDate birthDate;
 	
-	private Gender gender;
-	private UserType type;
+	@ManyToOne
+	@JoinColumn(name="GENDER_ID")
+	private Lookup gender;
+	
+	@ManyToOne
+	@JoinColumn(name="TYPE_ID")
+	private Lookup type;
 	
 	
 	public User() {}
 	
-	public User(int id) {
+	public User(Integer id) {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getFirstname() {
@@ -71,25 +104,17 @@ public class User {
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
-	public Gender getGender() {
+	public Lookup getGender() {
 		return gender;
 	}
-	public void setGender(Gender gender) {
+	public void setGender(Lookup gender) {
 		this.gender = gender;
 	}
-	public UserType getType() {
+	public Lookup getType() {
 		return type;
 	}
-	public void setType(UserType type) {
+	public void setType(Lookup type) {
 		this.type = type;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", username=" + username
-				+ ", password=" + password + ", age=" + age + ", address=" + address + ", birthDate=" + birthDate
-				+ ", gender=" + gender + ", type=" + type + "]";
-	}
-	
-	
 	
 }

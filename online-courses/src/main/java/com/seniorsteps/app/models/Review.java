@@ -1,24 +1,47 @@
 package com.seniorsteps.app.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="REVIEW")
 public class Review {
 
-	private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="RATE")
 	private short rate;
+	
+	@Column(name="COMMENT")
 	private String comment;
+	
+	@ManyToOne
+	@JoinColumn(name="COURSE_ID")
 	private Course course;
+	
+	@ManyToOne
+	@JoinColumn(name="STUDENT_ID")
 	private Student student;
 	
 	public Review() {}
 	
-	public Review(int id) {
+	public Review(Integer id) {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public short getRate() {
@@ -45,11 +68,5 @@ public class Review {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	@Override
-	public String toString() {
-		return "Review [id=" + id + ", rate=" + rate + ", comment=" + comment + ", course=" + course + ", student="
-				+ student + "]";
-	}
-	
 	
 }

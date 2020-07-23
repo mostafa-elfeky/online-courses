@@ -1,18 +1,11 @@
 package com.seniorsteps.app.repository;
 
-import com.seniorsteps.app.filter.SearchFilter;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.seniorsteps.app.models.Student;
 
-public interface StudentRepository {
-
-	Student save(Student student);
-
-	boolean deleteStudent(int studentId);
-
-	boolean updateStudent(Student student);
-	
-	Student findStudentById(int studentId);
-
-	Student listStudents(SearchFilter filter);
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Integer>  {
 
 }

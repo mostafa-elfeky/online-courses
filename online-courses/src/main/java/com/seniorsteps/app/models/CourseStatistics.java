@@ -2,28 +2,54 @@ package com.seniorsteps.app.models;
 
 import java.time.LocalTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="COURSE_STATISTICS")
 public class CourseStatistics {
 
-	private int courseId;
+	@Id
+	private Integer id;
+
+	@OneToOne
+	@JoinColumn(name="COURSE_ID")
+	private Course course;
+	
+	@Column(name="ENROLLMENTCOUNT")
 	private int enrollmentCount;
 	
+	@Column(name="REVIEW_COUNT")
 	private int reviewCount;
+	
+	@Column(name="REVIEW_RATE")
 	private double reviewRate;
 	
+	@Column(name="CONTENT_COUNT")
 	private int contentCount;
+	
+	@Column(name="CONTENT_TOTAL_TIME")
 	private LocalTime contentTotalTime;
 	
 	
 	public CourseStatistics() {}
 
-	public int getCourseId() {
-		return courseId;
+	public Integer getId() {
+		return id;
 	}
-
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 	public int getEnrollmentCount() {
 		return enrollmentCount;
 	}
@@ -63,16 +89,5 @@ public class CourseStatistics {
 	public void setContentTotalTime(LocalTime contentTotalTime) {
 		this.contentTotalTime = contentTotalTime;
 	}
-
-	@Override
-	public String toString() {
-		return "CourseStatistics [courseId=" + courseId + ", enrollmentCount=" + enrollmentCount + ", reviewCount="
-				+ reviewCount + ", reviewRate=" + reviewRate + ", contentCount=" + contentCount + ", contentTotalTime="
-				+ contentTotalTime + "]";
-	}
-	
-	
-	
-	
 	
 }

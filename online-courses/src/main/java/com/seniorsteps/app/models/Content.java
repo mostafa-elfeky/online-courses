@@ -2,27 +2,51 @@ package com.seniorsteps.app.models;
 
 import java.time.LocalTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="CONTENT")
 public class Content {
 
-	private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="VIDEO_ID")
 	private String videoId;
+	
+	@Column(name="PERIOD")
 	private LocalTime period;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
 	
+	@ManyToOne
+	@JoinColumn(name="COURSE_ID")
 	private Course course;
 
 	public Content() {}
 	
-	public Content(int id) {
+	public Content(Integer id) {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -66,12 +90,4 @@ public class Content {
 		this.course = course;
 	}
 
-	@Override
-	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", videoId=" + videoId + ", period=" + period
-				+ ", description=" + description + ", course=" + course + "]";
-	}
-	
-	
-	
 }

@@ -1,13 +1,15 @@
 package com.seniorsteps.app.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.seniorsteps.app.models.User;
 
-public interface UserRepository {
-
-	User save(User user);
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer>  {
 
 	User findUserByUsername(String email);
 
-	User findUserById(int userId);
+
 
 }

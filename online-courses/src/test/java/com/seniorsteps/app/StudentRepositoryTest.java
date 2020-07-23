@@ -35,7 +35,7 @@ public class StudentRepositoryTest {
 	@Ignore
     public void testFetStudentById() throws Exception {
 
-		Student student = studentRepository.findStudentById(1);
+		Student student = studentRepository.findById(1).get();
         System.out.println(" Student: " + student);
 	}
 	
@@ -43,8 +43,8 @@ public class StudentRepositoryTest {
 //	@Ignore
     public void testDeleteStudent() throws Exception {
 
-		boolean deleted = studentRepository.deleteStudent(1);
-        System.out.println(" Student deleted: " + deleted);
+		studentRepository.deleteById(1);
+        System.out.println(" Student deleted: ");
 	}
 	
 	@Test
@@ -54,8 +54,8 @@ public class StudentRepositoryTest {
 		Student student = getDummyStudent();
 		student.setId(1);
 		
-		boolean updated = studentRepository.updateStudent(student);
-        System.out.println(" Student updated: " + updated);
+		Student updatedStudent = studentRepository.save(student);
+        System.out.println(" Student updated: " + updatedStudent);
 	}
 	
 	private Student getDummyStudent() {

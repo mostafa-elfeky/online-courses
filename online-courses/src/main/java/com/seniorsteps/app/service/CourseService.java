@@ -14,14 +14,12 @@ import com.seniorsteps.app.repository.CourseRepository;
 @Service
 public class CourseService {
 
-	@Autowired 
+	@Autowired
 	private CourseRepository courseRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private ContentRepository contentRepository;
-	
-	
-	
+
 	public Course save(Course course) {
 		return courseRepository.save(course);
 	}
@@ -30,24 +28,19 @@ public class CourseService {
 	public void delete(int courseId) {
 
 		contentRepository.deleteByCourseId(courseId);
-		courseRepository.delete(courseId);
+		courseRepository.deleteById(courseId);
 	}
 
-	public boolean update(Course course) {
-		return courseRepository.update(course);
+	public Course update(Course course) {
+		return courseRepository.save(course);
 	}
-	
+
 	public Course findById(int courseId) {
-		return courseRepository.findById(courseId);
+		return courseRepository.findById(courseId).get();
 	}
 
 	public List<Course> list(CourseFilter filter) {
-		
-		if(filter.getCount() == 0) {
-			filter.setCount(10);
-		}
-		
-		return courseRepository.list(filter);
+		return courseRepository.findAll();
 	}
-	
+
 }

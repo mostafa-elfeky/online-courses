@@ -1,22 +1,50 @@
 package com.seniorsteps.app.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name="INSTRUCTOR")
 public class Instructor  {
 
-	private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="EMAIL")
 	private String email;
+	
+	@Column(name="ABOUT")
 	private String about;
+	
+	@Column(name="YOUTUBE_CHANNEL")
 	private String youtubeChannel;
+	
+	@Column(name="LINKED_IN")
 	private String linkedIn;
 	
-	private Field field;
+	@ManyToOne
+	@JoinColumn(name="GENDER_ID")
+	private Lookup field;
+	
+	@OneToOne
+	@JoinColumn(name="USER_ID")
 	private User user;
 	
 	public Instructor() {}
 	
-	public Instructor(int id) {
+	public Instructor(Integer id) {
 		this.id = id;
 	}
 	
@@ -60,19 +88,19 @@ public class Instructor  {
 		this.linkedIn = linkedIn;
 	}
 
-	public Field getField() {
+	public Lookup getField() {
 		return field;
 	}
 
-	public void setField(Field field) {
+	public void setField(Lookup field) {
 		this.field = field;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -82,12 +110,6 @@ public class Instructor  {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Instructor [id=" + id + ", name=" + name + ", email=" + email + ", about=" + about + ", youtubeChannel="
-				+ youtubeChannel + ", linkedIn=" + linkedIn + ", field=" + field + ", user=" + user + "]";
 	}
 		
 }

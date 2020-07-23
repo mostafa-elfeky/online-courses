@@ -4,29 +4,63 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="COURSE")
 public class Course {
 
-	private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="IMAGE")
 	private String image;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name="INSTRUCTOR_ID")
 	private Instructor instructor;
-	private Category category;
+	
+	@ManyToOne
+	@JoinColumn(name="CATEGORY_ID")
+	private Lookup category;
+	
+	@OneToMany(mappedBy="course")
 	private Set<Enrollment> enrollments;
+	
+	@OneToMany(mappedBy="course")
 	private List<Content> contents;
+	
+	@OneToOne(mappedBy="course")
 	private CourseStatistics statistics;
 	
 	public Course() {}
 	
-	public Course(int id) {
+	public Course(Integer id) {
 		this.id = id;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -46,11 +80,11 @@ public class Course {
 		this.instructor = instructor;
 	}
 
-	public Category getCategory() {
+	public Lookup getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(Lookup category) {
 		this.category = category;
 	}
 

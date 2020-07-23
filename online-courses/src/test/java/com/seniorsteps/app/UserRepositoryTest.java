@@ -36,7 +36,7 @@ public class UserRepositoryTest {
 	@Ignore
     public void testFetUserById() throws Exception {
 
-		User user = userRepository.findUserById(1);
+		User user = userRepository.findById(1).get();
         System.out.println(" User: " + user);
 	}
 	
