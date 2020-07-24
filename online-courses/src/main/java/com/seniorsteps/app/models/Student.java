@@ -1,21 +1,18 @@
 package com.seniorsteps.app.models;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="STUDENT")
-public class Student {
+public class Student extends User {
 
 	@Id
 	@Column(name="ID")
@@ -31,16 +28,12 @@ public class Student {
 	@Column(name="EXPERIENCE_LEVEL")
 	private int experienceLevel;
 	
-	@Column(name="ID")
-	@ManyToMany
-	@JoinTable(
-			joinColumns=@JoinColumn(name="STUDENT_ID"), 
-			inverseJoinColumns=@JoinColumn(name="COURSE_ID"))
-	private Set<Course> courses;
+	@OneToMany(mappedBy="student")
+	private List<Review> reviews;
 	
-	@OneToOne
-	@JoinColumn(name="USER_ID")
-	private User user;
+	@OneToMany(mappedBy="student")
+	private List<Enrollment> enrollments;
+	
 	
 	public Student() {}
 	
@@ -66,28 +59,23 @@ public class Student {
 	public void setExperienceLevel(int experienceLevel) {
 		this.experienceLevel = experienceLevel;
 	}
-	public Set<Course> getCourses() {
-		return courses;
-	}
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
-	
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public User getUser() {
-		return user;
+	public List<Review> getReviews() {
+		return reviews;
 	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
-
+	public List<Enrollment> getEnrollments() {
+		return enrollments;
+	}
+	public void setEnrollments(List<Enrollment> enrollments) {
+		this.enrollments = enrollments;
+	}
 	
 }

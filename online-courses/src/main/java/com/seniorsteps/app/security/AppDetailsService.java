@@ -3,6 +3,7 @@ package com.seniorsteps.app.security;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class AppDetailsService implements UserDetailsService, Serializable {
     public UserDetails loadUserByUsername(String email) {
         
     	User user = userRepository.findUserByUsername(email);
-
+    	
 		AppUserPrincipal userPrincipal = new AppUserPrincipal(user);
 
         return userPrincipal;

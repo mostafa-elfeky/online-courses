@@ -4,15 +4,19 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="USER")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -41,11 +45,11 @@ public class User {
 	@Column(name="BIRTH_DATE")
 	private LocalDate birthDate;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="GENDER_ID")
 	private Lookup gender;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="TYPE_ID")
 	private Lookup type;
 	

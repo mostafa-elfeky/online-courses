@@ -6,17 +6,25 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="COURSE")
+@NamedEntityGraph(name="Course.Details", 
+	attributeNodes={
+		@NamedAttributeNode("contents")
+	}
+)
 public class Course {
 
 	@Id
@@ -37,7 +45,7 @@ public class Course {
 	@JoinColumn(name="INSTRUCTOR_ID")
 	private Instructor instructor;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="CATEGORY_ID")
 	private Lookup category;
 	
@@ -49,6 +57,9 @@ public class Course {
 	
 	@OneToOne(mappedBy="course")
 	private CourseStatistics statistics;
+	
+	@OneToMany(mappedBy="course")
+	private List<Review> reviews;
 	
 	public Course() {}
 	
@@ -136,11 +147,12 @@ public class Course {
 		contents.add(content);
 	}
 	
-	@Override
-	public String toString() {
-		return "Course [id=" + id + ", title=" + title + ", instructor=" + instructor + ", category=" + category
-				+ ", enrollments=" + enrollments + ", contents=" + contents + "]";
+	public List<Review> getReviews() {
+		return reviews;
 	}
-	
-	
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
 }

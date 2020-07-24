@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.seniorsteps.app.filter.CourseFilter;
 import com.seniorsteps.app.models.Course;
+import com.seniorsteps.app.models.enums.LookupType;
+import com.seniorsteps.app.repository.LookupRepository;
 import com.seniorsteps.app.service.CourseService;
 
 @Controller
@@ -21,6 +23,9 @@ public class CourseController {
 
 	@Autowired 
 	private CourseService courseService;
+	
+	@Autowired
+	private LookupRepository lookupRepository;
 	
 	
 	@GetMapping
@@ -35,7 +40,7 @@ public class CourseController {
 		List<Course> courses = courseService.list(filter);
 		
 		mav.addObject("courses", courses);
-		mav.addObject("categories", null);
+		mav.addObject("categories", lookupRepository.findByType(LookupType.CATEGORY.getType()));
 		mav.addObject("filter", filter);
 		
 		return mav;

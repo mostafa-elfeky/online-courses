@@ -7,12 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="INSTRUCTOR")
-public class Instructor  {
+public class Instructor  extends User {
 
 	@Id
 	@Column(name="ID")
@@ -35,12 +34,9 @@ public class Instructor  {
 	private String linkedIn;
 	
 	@ManyToOne
-	@JoinColumn(name="GENDER_ID")
+	@JoinColumn(name="FIELD_ID")
 	private Lookup field;
 	
-	@OneToOne
-	@JoinColumn(name="USER_ID")
-	private User user;
 	
 	public Instructor() {}
 	
@@ -102,14 +98,6 @@ public class Instructor  {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 		
 }
